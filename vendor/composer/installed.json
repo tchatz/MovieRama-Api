@@ -1,0 +1,46 @@
+[
+    {
+        "name": "emarref/jwt",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/emarref/jwt.git",
+            "reference": "493206630f7f79a3d35a7d5070c01a451408e131"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/emarref/jwt/zipball/493206630f7f79a3d35a7d5070c01a451408e131",
+            "reference": "493206630f7f79a3d35a7d5070c01a451408e131",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*"
+        },
+        "suggest": {
+            "ext-openssl": "Enables more token encryption options"
+        },
+        "time": "2015-09-02 21:03:57",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Emarref\\Jwt\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Malcolm Fell",
+                "email": "emarref@gmail.com"
+            }
+        ],
+        "description": "A JWT implementation"
+    }
+]
