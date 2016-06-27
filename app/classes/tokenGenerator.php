@@ -51,4 +51,15 @@ class tokenGenerator {
         return $userId;
     }
 
+    public function autoRefresh($token,$request){
+        $token->addClaim(new Claim\Expiration(new \DateTime('30 minutes')));
+        $jwt = new Emarref\Jwt\Jwt();
+        $ipAddress = $request->getClientAddress();
+        $algorithm = new Emarref\Jwt\Algorithm\Hs256($ipAddress . SECRET_PHRASE);
+        $encryption = Emarref\Jwt\Encryption\Factory::create($algorithm);
+        $serializedToken = $jwt->serialize($token, $encryption);
+        
+        return $serializedToken;
+    }
+    
 }
