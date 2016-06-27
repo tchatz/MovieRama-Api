@@ -106,7 +106,7 @@ class SecurityPlugin extends Plugin {
                 $token = $jwt->deserialize($jwToken);
             } catch (\Exception $e) {
                 $data['status'] = array(
-                    'code' => 0,
+                    'code' => 3,
                     'msg' => 'invalid token'
                 );
                 echo json_encode($data);
