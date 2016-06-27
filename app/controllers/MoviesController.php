@@ -126,6 +126,28 @@ class MoviesController extends \Phalcon\Mvc\Controller {
         $token = new tokenGenerator();
         $userId = $token->getUserId($request);
 
+        $response = new Response();
+
+        //check if user is author
+        $isAuthor = Movies::findFirst(array(
+                    "conditions" => "author = :user: AND id = :movie:",
+                    "bind" => array("user" => $userId, "movie" => $movie)
+        ));
+
+
+        if ($isAuthor) {
+            $dataResponse = array(
+                'data' => array(),
+                'status' => array(
+                    'code' => 0,
+                    'msg' => 'You cannot vote this movie!',
+                )
+            );
+            $response->setJsonContent($dataResponse);
+            $response->setHeader("Content-Type", "application/json");
+            return $response;
+        }
+
         //check if vote exists
         $checkVote = Votes::findFirst(array(
                     "conditions" => "user = :user: AND movie = :movie:",
@@ -149,9 +171,14 @@ class MoviesController extends \Phalcon\Mvc\Controller {
             }
         }
 
-
-        $response = new Response();
-        $response->setJsonContent($itemData);
+        $dataResponse = array(
+            'data' => array(),
+            'status' => array(
+                'code' => 0,
+                'msg' => 'Request accepted!',
+            )
+        );
+        $response->setJsonContent($dataResponse);
         $response->setHeader("Content-Type", "application/json");
         return $response;
     }
