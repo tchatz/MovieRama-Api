@@ -42,7 +42,7 @@ class SecurityPlugin extends Plugin {
 
             //Private area resources
             $privateResources = array(
-                'Movies' => array('index', 'addMovie','voteMovie')
+                'Movies' => array('index', 'addMovie', 'voteMovie')
             );
 
             foreach ($privateResources as $resource => $actions) {
@@ -105,8 +105,9 @@ class SecurityPlugin extends Plugin {
             try {
                 $token = $jwt->deserialize($jwToken);
             } catch (\Exception $e) {
+                
                 $data['status'] = array(
-                    'code' => 3,
+                    'code' => 0,
                     'msg' => 'invalid token'
                 );
                 echo json_encode($data);
@@ -124,6 +125,7 @@ class SecurityPlugin extends Plugin {
                 if ($jwt->verify($token, $context)) {
                     $userId = $token->getPayload()->findClaimByName('jti')->getValue();
                 } else {
+                    
                     $data['status'] = array(
                         'code' => 0,
                         'msg' => 'invalid token'
@@ -132,6 +134,20 @@ class SecurityPlugin extends Plugin {
                     exit;
                 }
             } catch (Emarref\Jwt\Exception\VerificationException $e) {
+                
+                if (strpos($e->getMessage(), 'Token expired at') !== false) {
+                    $tokenRefresh = new tokenGenerator();
+                    $newToken = $tokenRefresh->autoRefresh($token, $request);
+                    
+                    $data['status'] = array(
+                        'code' => 3,
+                        'newToken' => $newToken,
+                        'msg' => 'invalid token'
+                    );
+                    echo json_encode($data);
+                    exit;
+                }
+
                 $data['status'] = array(
                     'code' => 0,
                     'msg' => 'invalid token'
