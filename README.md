@@ -4,6 +4,9 @@
 1. [Movierama Api documentation](http://139.162.145.237/project/apidoc/#api-Add_Movie)
 2. Movierama backend (current repo)
 3. [Movierama frontend](https://github.com/tchatz/MovieRama-Front) 
+4. Dummy DB (http://139.162.145.237/project/MovieRamaDB.sql)
+
+[DEMO](http://139.162.145.237/project/MovieRama-Front/#/) 
 
 
 Install
