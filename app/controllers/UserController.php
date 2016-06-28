@@ -148,31 +148,20 @@ class UserController extends \Phalcon\Mvc\Controller {
      *     }
      *
      * @apiSuccess {Array} status 
-     * @apiSuccess {Integer} code 1: Successfull login 0: wrong credentials
+     * @apiSuccess {Integer} code 1: User account created! 0: Error
      * @apiSuccess {String} msg 
-     * @apiSuccess {Array} data 
-     * @apiSuccess {String} token 
-     * @apiSuccess {String} firstName 
-     * @apiSuccess {Array} lastName
-     * @apiSuccess {String} userId 
      *
      * @apiSuccessExample Success-Response:
      * HTTP/1.1 200 OK
      * 
      *{
-     * "data": {
-     *  "token": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOlsiYXVkaWVuY2VfMSIsImF1ZGllbmNlXzIiXSwiZXhwIjoxNDY2OTgwNTEyLCJpYXQiOjE0NjY5Nzg3MTIsImlzcyI6InlvdXJfaXNzdWVyIiwianRpIjoiMyIsIm5iZiI6MTQ2Njk3ODcxMiwic3ViIjoieW91cl9zdWJqZWN0IiwiY2xhaW1fbmFtZSI6ImNsYWltX3ZhbHVlIiwidXNlcl9yb2xlIjoiTUVNQkVSIn0.e2V2hWFhgRbfbhqhAE_eQcCJOUmaxs-jsVMUy7Eq674",
-     *  "firstName": "Thomas",
-     *  "lastName": "Chatzidimitris",
-     *  "userId": "3"
-     * },
      * "status": {
      *  "code": 1,
-     *  "msg": "Successfull login"
+     *  "msg": "User account created!"
      * }
      *}
      * 
-     *@apiErrorExample Error-Response:
+     *@apiErrorExample Error-Response 1:
      * 
      * {
      *  "status": {
@@ -180,7 +169,26 @@ class UserController extends \Phalcon\Mvc\Controller {
      *  "msg": "Username exists"
      *  }
      * }
-     *  
+     *
+     * @apiErrorExample Error-Response 2:
+     * 
+     * {
+     *  "status": {
+     *  "code": 0,
+     *  "msg": "Missing required fields"
+     *  }
+     * }
+     *
+     *  @apiErrorExample Error-Response 3:
+     * Error on save()
+     * 
+     * {
+     *  "status": {
+     *  "code": 0,
+     *  "msg": "Something goes wrong!"
+     *  }
+     * }
+     *    
      */
     public function signupAction() {
         $request = new Request();
